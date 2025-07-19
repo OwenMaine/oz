@@ -1,0 +1,389 @@
+/*
+  main.css
+  Stylesheet for Oz Steel Inc.
+*/
+
+/* -------------------------- */
+/* ROOT VARIABLES & DEFAULTS  */
+/* -------------------------- */
+:root {
+    --charcoal: #1E1E1E;
+    --oxblood: #9E1B1B;
+    --gunmetal: #2F2F2F;
+    --concrete: #F7F5F3;
+
+    --font-headline: 'Space Grotesk', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+
+    --section-padding: 5rem;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--charcoal);
+    color: var(--concrete);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* -------------------------- */
+/* TYPOGRAPHY & UTILITIES     */
+/* -------------------------- */
+h1, h2, h3 {
+    font-family: var(--font-headline);
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--concrete);
+}
+
+h2 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+p {
+    margin-bottom: 1rem;
+}
+
+a {
+    color: var(--oxblood);
+    text-decoration: none;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 0.8rem 2.5rem;
+    border: 2px solid var(--oxblood);
+    background-color: transparent;
+    color: var(--concrete);
+    font-family: var(--font-headline);
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--oxblood);
+    transform: scaleX(0);
+    transform-origin: left;
+    z-index: -1;
+}
+
+/* -------------------------- */
+/* ANIMATIONS                 */
+/* -------------------------- */
+.fade-in-section {
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.fade-in-section.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .fade-in-section.is-visible {
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .cta-button::before {
+        transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+    }
+
+    .cta-button:hover::before,
+    .cta-button:focus-visible::before {
+        transform: scaleX(1);
+    }
+}
+
+/* -------------------------- */
+/* HERO SECTION               */
+/* -------------------------- */
+.hero-section {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    overflow: hidden; /* Ensures pseudo-elements don't overflow */
+}
+
+.hero-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(30, 30, 30, 0.7); /* Steel texture overlay */
+    z-index: -1;
+}
+
+.parallax-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../images/1.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Simple parallax fallback */
+    z-index: -2;
+}
+
+.hero-content h1 {
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    max-width: 20ch;
+    margin: 0 auto 1.5rem;
+}
+
+/* -------------------------- */
+/* SERVICES SECTION           */
+/* -------------------------- */
+.services-section {
+    background-color: var(--concrete);
+    padding: var(--section-padding) 0;
+}
+
+.services-section h2,
+.services-section h3 {
+    color: var(--gunmetal);
+}
+
+.services-section p {
+    color: #444;
+}
+
+.services-grid {
+    display: grid;
+    gap: 2.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.service-card {
+    text-align: center;
+}
+
+.service-card i {
+    font-size: 3.5rem;
+    color: var(--oxblood);
+    margin-bottom: 1rem;
+}
+
+.service-card h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+}
+
+/* -------------------------- */
+/* FEATURED PROJECTS SECTION  */
+/* -------------------------- */
+.projects-section {
+    padding: var(--section-padding) 0;
+}
+
+.projects-grid {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.project-card {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 16 / 10;
+    border-radius: 4px;
+}
+
+.project-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 1.5rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+}
+
+.project-info h3 {
+    font-size: 1.5rem;
+}
+
+/* -------------------------- */
+/* ABOUT & SAFETY SECTIONS    */
+/* -------------------------- */
+.about-section, .safety-section {
+    padding: var(--section-padding) 0;
+    align-items: center;
+}
+
+.about-section {
+    background-color: var(--concrete);
+}
+.about-section h2, .about-section p, .about-section strong {
+    color: var(--gunmetal);
+}
+.about-section .cta-button {
+    margin-top: 1rem;
+    color: var(--gunmetal);
+}
+.about-section .cta-button:hover, 
+.about-section .cta-button:focus-visible {
+    color: var(--concrete);
+}
+
+
+.about-grid, .safety-grid {
+    display: grid;
+    gap: 3rem;
+    align-items: center;
+}
+
+.safety-grid {
+    grid-template-areas: "content" "image";
+}
+
+.safety-image {
+    grid-area: image;
+}
+
+.safety-content {
+    grid-area: content;
+}
+
+.certifications-list {
+    list-style: none;
+    margin-top: 2rem;
+}
+
+.certifications-list li {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+}
+
+.certifications-list i {
+    font-size: 1.5rem;
+    color: var(--oxblood);
+}
+
+/* -------------------------- */
+/* CONTACT FOOTER             */
+/* -------------------------- */
+.contact-section {
+    padding: var(--section-padding) 0 0;
+    background-color: var(--gunmetal);
+}
+.contact-grid {
+    display: grid;
+    gap: 3rem;
+}
+.contact-section h3 {
+    margin-bottom: 1.5rem;
+}
+.form-group {
+    margin-bottom: 1.5rem;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-family: var(--font-mono);
+}
+.form-group input, .form-group textarea {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: var(--charcoal);
+    border: 1px solid #444;
+    color: var(--concrete);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    border-radius: 4px;
+}
+.form-group input:focus, .form-group textarea:focus {
+    outline: 2px solid var(--oxblood);
+    border-color: var(--oxblood);
+}
+
+.map-image {
+    border: 2px solid #444;
+    margin-top: 1rem;
+    display: block;
+    border-radius: 4px;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding: 1.5rem 0;
+    margin-top: var(--section-padding);
+    border-top: 1px solid #444;
+    font-size: 0.9rem;
+    color: #aaa;
+}
+.footer-bottom p { margin: 0; }
+
+/* -------------------------- */
+/* RESPONSIVE MEDIA QUERIES   */
+/* -------------------------- */
+@media (min-width: 768px) {
+    :root {
+        --section-padding: 8rem;
+    }
+    .projects-grid {
+        grid-template-columns: 2fr 1fr;
+        grid-template-rows: repeat(2, 1fr);
+        height: 600px;
+    }
+    .project-card.large {
+        grid-column: 1 / 2;
+        grid-row: 1 / 3;
+    }
+    .about-grid, .safety-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    .safety-grid {
+        grid-template-areas: "content image";
+    }
+    .contact-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (min-width: 992px) {
+    .about-grid {
+        grid-template-columns: 1fr 1.2fr;
+    }
+}
